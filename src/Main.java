@@ -1,57 +1,80 @@
-import Models.Employee;
-import Models.Person;
-import Models.Student;
-
 import java.util.ArrayList;
-
 
 public class Main {
     private ArrayList<Person> personList = new ArrayList<>();
 
-    private ArrayList<Employee> employeeList = new ArrayList<>();
-    private ArrayList<Student> studentList = new ArrayList<>();
-    // I created 3 arraylists, because we have 3 types of peoples: employee, person and student.
-    // So, we can`t add 3 types of people to one ArrayList. It`s may be really, I tried with abstract class, but I can`t do it
     public static void main(String[] args) {
         Main mainInstance = new Main();
-        mainInstance.InitializeData();
-
+        mainInstance.initializeData();
         mainInstance.printData();
-
     }
 
-    private void InitializeData(){
-
+    private void initializeData() {
         Person abylay = new Person("Erzhan", "Akulov");
         abylay.setSalary(1500000);
-
-
-        Employee abylayka = new Employee("Ersin", "Kabylov", "student", 15000);
-
-
-        Student Nura = new Student("Nurakmad", "Akbergen", 2.7);
-        Student Akezh = new Student("Akezhan", "Bakytzhanov", 2.1);
-
         this.personList.add(abylay);
 
-        this.employeeList.add(abylayka);
-        this.studentList.add(Nura);
-        this.studentList.add(Akezh);
+        Employee abylayka = new Employee("Ersin", "Kabylov", "student", 15000);
+        this.personList.add(abylayka);
 
-
+        Student nura = new Student("Nurakmad", "Akbergen", 2.7);
+        Student akezh = new Student("Akezhan", "Bakytzhanov", 2.1);
+        this.personList.add(nura);
+        this.personList.add(akezh);
     }
 
-    public void printData(){
-        for(Person person : personList){
-            System.out.println("Person:" + person.getId() + ". " + person.getName() + person.getSurname() + " зарабатывает " + person.getPaymentAmount());
+    private void printData() {
+        for (Person person : personList) {
+            System.out.println(person);
         }
+    }
+}
 
-        for(Student student : studentList){
-            System.out.println("Student:" + student.getId() + ". " + student.getName() + student.getSurname() + " зарабатывает " + student.getPaymentAmount());
-        }
+class Person {
+    private String firstName;
+    private String lastName;
+    private double salary;
 
-        for(Employee employee : employeeList){
-            System.out.println("Employee:" + employee.getId() + ". " + employee.getName() + employee.getSurname() + " зарабатывает " + employee.getPaymentAmount());
-        }
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "Person: " + firstName + " " + lastName + ", Salary: " + salary;
+    }
+}
+
+class Employee extends Person {
+    private String role;
+
+    public Employee(String firstName, String lastName, String role, double salary) {
+        super(firstName, lastName);
+        this.role = role;
+        setSalary(salary);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee: " + super.toString() + ", Role: " + role;
+    }
+}
+
+class Student extends Person {
+    private double gpa;
+
+    public Student(String firstName, String lastName, double gpa) {
+        super(firstName, lastName);
+        this.gpa = gpa;
+    }
+
+    @Override
+    public String toString() {
+        return "Student: " + super.toString() + ", GPA: " + gpa;
     }
 }

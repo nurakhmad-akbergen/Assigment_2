@@ -20,7 +20,7 @@ public class Student implements Payable{
     }
 
     public String toString() {
-        return "Student" + ":" + " " + id + "." + name + " gpa: " + gpa;
+        return "Student" + ":" + " " + id + "." + name + " GPA: " + gpa;
     }
 
     @Override
